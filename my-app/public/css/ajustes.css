@@ -1,0 +1,98 @@
+*{
+    margin: 0; padding: 0; 
+}
+header{
+    background-color: #344D7D;
+    /* box-shadow: 0px 10px 10px rgb(204, 204, 204); */
+    display: block;
+    width: 100%;
+    height: 47px;
+    position: relative;
+}
+.icon_back{
+    color: white;
+    position: absolute;
+    top: 10px;
+    left: 22px;
+    font-size: 27px;
+}
+.header_image{
+    position: absolute;
+    top: 1px;
+    left: 77px;
+    width: 41px; margin-top: 3px;
+}
+.header_image:hover{
+    cursor: pointer;
+}
+.page_title{
+    color: white;
+    font-size: 22px;
+    position: absolute;
+    top: 3px;
+    left: 171px;
+    width: 71px; margin-top: 3px;
+}
+.loader_suzdal {
+    position: absolute;
+    top: 33%;
+    left: 49%;
+    z-index: 111;
+    background-color: white;
+    width: 51px;
+    height: 51px;
+    border-radius: 11px; 
+  }
+  .custom_gif_suzdal {
+      width: 51px; height: 51px;
+  }
+  .classGrey:hover{
+    cursor: pointer;
+  }
+  .editDriverData{
+    font-size: 11px;
+  }
+  #recalculateRoute{
+    color: black;
+    position: absolute;
+    right: 22px;
+    top: 11px;
+    padding: 3px;
+    border-radius: 7px;
+}
+#recalculateRoute{
+    cursor: pointer;
+}
+
+
+section{
+    width: 98%;
+    margin-left: 1%;
+    margin-top: 1%;
+}
+.description{
+    min-width: 333px;
+}
+table{
+    font-size: 19px;
+}
+#add_new_line{
+    font-size: 33px;
+    color: white;
+    position: absolute;
+    right: 22px;
+    top: 4px;
+    padding: 3px;
+    border-radius: 7px;
+}
+#add_new_line:hover{
+    cursor: pointer;
+}
+#saveButton{
+    display: none;
+}
+#closeButton{
+    font-size: 22px;
+    display: none;
+    margin-bottom: 22px;
+}

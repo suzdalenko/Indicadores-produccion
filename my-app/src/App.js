@@ -1,14 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Ajustes from './pages/Ajustes';
 import Grafico from './pages/Grafico';
 import Home from './pages/Index';
 import About from './pages/About';
 import Users from './pages/Users';
 
+
 const App = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/Ajustes" element={<Ajustes />} />
         <Route path="/Grafico" element={<Grafico />} />
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -16,6 +19,9 @@ const App = () => {
       </Routes>
       <nav>
         <ul>
+          <li>
+            <Link to="/Ajustes">Ajustes</Link>
+          </li>
           <li>
             <Link to="/Grafico">Grafico</Link>
           </li>
