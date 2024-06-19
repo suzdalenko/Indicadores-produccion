@@ -4,12 +4,13 @@ import { gListArticles } from "../vars/global";
 const Ajustes = () => {
     useEffect(() => { document.title = "Ajustes - Indicadores produccíon"; }, [])
 
-    const [listArticles, setArticles] = useState(gListArticles);
+    const [listArticles, setArticles] = useState(gListArticles());
 
     const miClickEvent = (event) => {
+        let updatedArticles = [...listArticles];
         if (event.key == "Enter") {
             let inputId = event.target.id.split('_')[1];
-            gListArticles.forEach((article) => {
+            updatedArticles.forEach((article) => {
                 if(article.id == inputId) {
                     article.num      = document.getElementById('numero_'+inputId).value;
                     article.desc     = document.getElementById('producto_'+inputId).value;
@@ -18,24 +19,40 @@ const Ajustes = () => {
                     article.pesoNom  = document.getElementById('pesonominal_'+inputId).value;
                     article.pesoMax  = document.getElementById('peso_'+inputId).value;
                 }
-            });  
-            setArticles(gListArticles);
-            console.log(gListArticles)
+            });
+            localStorage.setItem('initData', JSON.stringify(updatedArticles));
+            setArticles(updatedArticles);
         }
     };
+
+    const createNewLine = () => {
+        let idArticle = listArticles.reduce((maxId, article) => Math.max(maxId, article.id), 0) + 1;
+        let newArticle = { id: idArticle, num: 0, desc: "", ritmoMin: 0, ritmoMax: 0, pesoNom: 0, pesoMax: 0 };
+        let updatedArticles = [...listArticles, newArticle];
+        localStorage.setItem('initData', JSON.stringify(updatedArticles));
+        setArticles(updatedArticles);
+    };
+
+    const reloadPage = () => { window.location.reload(); }
+
+    const deleteThisLine = (lineId) => {
+        let updatedArticles = listArticles.filter(article => article.id !== lineId);
+        localStorage.setItem('initData', JSON.stringify(updatedArticles));
+        setArticles(updatedArticles);
+    }
 
     return (
         <div>
             <header>
-                <i className="fa fa-chevron-circle-left custom icon_back" id="volverAErp"></i>
-                <img src="/logo512.png" className="header_image" id="header_image" />
+                <img src="/logo512.png" className="header_image" id="header_image" onClick={reloadPage} />
                 <span className="page_title">Ajustes</span>
-                <i className="fa fa-plus" id="add_new_line" ></i>
+                <i className="fa fa-plus add_new_line" onClick={createNewLine}></i>
             </header>
             <section>
                 <div><button type="button" className="btn-close" id="closeButton"></button></div>
                 <table className="table table-striped">
                     <thead><tr>
+                        <th scope="col">#</th>
                         <th scope="col">Numero</th>
                         <th scope="col">Descripcion</th>
                         <th scope="col">Ritmo mínimo</th>
@@ -46,7 +63,8 @@ const Ajustes = () => {
                     <tbody>
                     {listArticles.map(article => (
                             <tr key={article.id}>
-                                <td><input onKeyDown={miClickEvent} id={`numero_${article.id}`} type="text" defaultValue={article.num} /></td>
+                                <td><i className="fa fa-trash deleteThisObj" aria-hidden="true" onClick={() => deleteThisLine(article.id)}></i></td>
+                                <td><input onKeyDown={miClickEvent} id={`numero_${article.id}`} type="number" defaultValue={article.num} /></td>
                                 <td><input onKeyDown={miClickEvent} id={`producto_${article.id}`} type="text" className="description" defaultValue={article.desc} /></td>
                                 <td><input onKeyDown={miClickEvent} id={`min_${article.id}`} type="number" defaultValue={article.ritmoMin} /></td>
                                 <td><input onKeyDown={miClickEvent} id={`max_${article.id}`} type="number" defaultValue={article.ritmoMax} /></td>
@@ -56,7 +74,6 @@ const Ajustes = () => {
                         ))}
                     </tbody>
                 </table>
-                <div><button type="button" className="btn btn-primary" id="saveButton">Guardar y salir</button></div>
             </section>
         </div >
     );
